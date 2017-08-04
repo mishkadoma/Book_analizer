@@ -2,6 +2,7 @@
 
 import sys
 import os
+import operator
 
 def main():
     if len(sys.argv) != 2:
@@ -17,14 +18,17 @@ def main():
 
     with open(file_location) as file:
         for line in file:
-            if line[0] == ';':
-                pass
-            else:
-                splitted_line = line.split(' ')
-                word_array.append(splitted_line)
-                for row in word_array:
-                    for element in row:
-                        flat_list.append(element)
+            splitted_line = line.split(' ')
+            word_array.append(splitted_line)
+            #
+            # for row in word_array:
+            #     for element in row:
+            #         flat_list.append(element)
+
+        for row in word_array:
+            for element in row:
+                flat_list.append(element)
+
         for i in range (len(flat_list)):
             flat_list[i] = flat_list[i].strip()
 
@@ -37,7 +41,9 @@ def main():
         else:
             word_quantity[pick] = word_quantity[pick] + 1
             # print(word_quantity)
-    print(word_quantity)
+
+    sorted_final_list = sorted(word_quantity.items(), key = operator.itemgetter(1))
+    print(sorted_final_list)
 
 
 
